@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import SearchIcon from "./search.svg";
 import PhotoCard from "./PhotoCard";
-import Modal from "./Modal"; // Import the Modal component
+import Modal from "./Modal";
 
 const API_URL =
   "https://api.unsplash.com/search/photos/?client_id=W2OTsEbAlggHUjqTJbVFgIjYTFNgzLgs8sYKI2zrejE";
