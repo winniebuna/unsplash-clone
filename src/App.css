@@ -1,38 +1,278 @@
-.App {
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+
+* {
+  margin: 0;
+  border: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Montserrat", sans-serif;
+  background-color: white;
+}
+
+.app {
+  padding: 4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.header-portion {
+  background: rgb(197, 206, 209);
+  padding: 5rem;
+  position: relative; /* Ensure it stacks properly */
+  z-index: 1;
+  padding-top: 6rem;
+}
+
+.search {
+  width: 90%;
+  margin: 0 auto 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 1.25rem;
+  border-radius: 0.2rem;
+  background: white;
+  box-shadow: 5px 5px 7px #4444440d, -5px -5px 7px #5f61620e;
+}
+
+.search input {
+  flex: 1;
+  border: none;
+  font-size: 1rem;
+  font-family: var(--font-raleway);
+  font-weight: 500;
+  padding-right: 1rem;
+  margin-left: 1rem;
+  outline: none;
+  background: white;
+}
+
+.search input::placeholder {
+  color: rgb(19, 19, 41);
+  opacity: 1; /* Ensures the placeholder is fully opaque */
+}
+.search img {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+/* Masonry layout using CSS columns */
+.container {
+  column-count: 3;
+  column-gap: 20px;
+  margin: -5rem auto 20px; /* Negative margin to pull it up and center */
+  padding-top: 2rem;
+  max-width: 70%; /* Limit width to 70% of the parent */
+  position: relative;
+  z-index: 2; /* Ensure it overlays the header */
+}
+
+.photo {
+  position: relative; /* Ensure the overlay is positioned relative to the photo */
+  display: inline-block;
+  width: 100%;
+  margin-bottom: 20px;
+  break-inside: avoid; /* Prevents breaking within the column */
+  border-radius: 0.5rem;
+  overflow: hidden; /* Prevents the overlay from exceeding photo boundaries */
+  cursor: pointer;
+}
+
+.photo-image {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Overlay effect on images */
+.overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0));
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 1.5rem;
+  color: white;
+  z-index: 1; /* Ensures the overlay is above the image */
+}
+
+.user-name,
+.user-location {
+  margin: 0;
+  font-size: 1em;
+}
+
+/* Empty state styling */
+.empty {
+  text-align: center;
+  padding: 2rem;
+}
+
+.empty h1 {
+  font-size: 2rem;
+  color: #555;
+}
+
+/* Card styling for individual photos */
+.card {
+  background-color: #fff;
+  border-radius: 8px;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.card h3 {
+  padding: 10px 0;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  align-items: center;
+  z-index: 100; /* Ensure it is above other elements */
+  overflow: auto;
+  opacity: 0; /* Initially hidden */
+  transition: opacity 0.5s ease;
+}
+
+.modal-overlay.open {
+  opacity: 1; /* Fully visible when open */
+}
+
+.modal-content {
+  background: white;
+  padding-bottom: 20px;
+  border-radius: 8px;
+  max-width: 400px;
+  width: 100%;
+  object-fit: contain;
+  margin-top: 3rem;
+  transform: scale(0.7); /* Initially scaled down */
+  transition: transform 0.5s ease;
+  position: relative;
+}
+
+.modal-content.open {
+  transform: scale(1); /* Fully scaled when open */
+}
+
+.modal-image {
+  width: 100%;
+  height: auto;
+  border-radius: 8px 8px 0 0;
+}
+
+.modal-text {
+  margin: 1.2rem 0 0.8rem 2rem;
+  text-align: left;
+}
+
+.user-name,
+.user-location {
+  font-size: 0.6rem;
+}
+
+.user-name {
+  font-size: 1rem;
+  font-weight: 500;
+  padding-bottom: 0.2rem;
+}
+
+.close-button {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  font-size: 24px;
   color: white;
+  background: none;
+  cursor: pointer;
 }
 
-.App-link {
-  color: #61dafb;
+/* code for Entire scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+/* Scrollbar Track */
+::-webkit-scrollbar-track {
+  background: #96989a;
+}
+
+/* Scrollbar Thumb */
+::-webkit-scrollbar-thumb {
+  background-color: #485054;
+  border-radius: 10px;
+}
+
+/* Scrollbar Thumb Hover */
+::-webkit-scrollbar-thumb:hover {
+  background-color: #656769;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .header-portion {
+    padding: 1.5rem 0.2rem;
+    position: sticky;
+    top: 0; /* Stick to the top */
+    z-index: 3;
   }
-  to {
-    transform: rotate(360deg);
+
+  .search {
+    width: 90%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    border-radius: 0.2rem;
+    background: white;
+    box-shadow: 5px 5px 7px #4444440d, -5px -5px 7px #5f61620e;
+  }
+
+  .container {
+    column-count: 2;
+    column-gap: 15px;
+    max-width: 75%;
+    margin-top: 2%;
+  }
+
+  .photo {
+    margin-bottom: 15px;
+  }
+
+  .modal-content {
+    max-width: 90%;
+  }
+}
+
+@media (max-width: 480px) {
+  .header-portion {
+    padding: 1.5rem 0.2rem;
+    position: sticky;
+    top: 0;
+    z-index: 3;
+  }
+  .container {
+    column-count: 1;
+    max-width: 95%;
+  }
+
+  .search input {
+    font-size: 0.9rem;
   }
 }
